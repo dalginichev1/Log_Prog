@@ -6,11 +6,11 @@ solve :-
     pairs(People, AssignedBirds, Pairs),
 
     condition1(Pairs),      
+    condition2(Pairs),      
     condition3(Pairs),      
+    condition4(Pairs),      
     condition5(Pairs),      
     condition6(Pairs),      
-    condition7(Pairs),      
-    condition8(Pairs),      
 
     format('Решение найдено:~n'),
     print_pairs(Pairs),
@@ -54,26 +54,26 @@ condition1(Pairs) :-
          Person \= OtherPerson)
     ).
 
-condition3(Pairs) :-
+condition2(Pairs) :-
     member((voronov, Bird), Pairs),
     тезка_птицы(Bird, TezkaPerson),
     женат(TezkaPerson).
 
-condition5(Pairs) :-
+condition3(Pairs) :-
     member((GrachOwner, grach), Pairs),
     женат(GrachOwner),
     GrachOwner \= chaykin.
 
-condition6(Pairs) :-
+condition4(Pairs) :-
     member((VoronOwner, voron), Pairs),
     холост(VoronOwner).
 
-condition7(Pairs) :-
+condition5(Pairs) :-
     member((grachev, Bird), Pairs),
     тезка_птицы(Bird, TezkaPerson),
     member((TezkaPerson, kanareyka), Pairs).
 
-condition8(Pairs) :-
+condition6(Pairs) :-
     member((PopugayOwner, popugay), Pairs),
     тезка(PopugayOwner, TezkaBird1),          
     member((voronov, VoronovBird), Pairs),
@@ -83,7 +83,6 @@ condition8(Pairs) :-
 find_skvorets_owner([(Owner, skvorets)|_], Owner) :- !.
 find_skvorets_owner([_|Pairs], Owner) :- find_skvorets_owner(Pairs, Owner).
 
-% Функции для красивого вывода с заглавными буквами
 print_name(voronov) :- format('Воронов').
 print_name(golubev) :- format('Голубев').
 print_name(grachev) :- format('Грачев').
@@ -107,5 +106,3 @@ print_pairs([(Person,Bird)|Pairs]) :-
     print_bird(Bird),
     format('~n'),
     print_pairs(Pairs).
-
-start :- solve.
